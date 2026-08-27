@@ -335,8 +335,8 @@ button:focus-visible {
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.25fr;
-  gap: 48px;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 56px;
   align-items: center;
 }
 .hero-name-line {
@@ -387,26 +387,31 @@ button:focus-visible {
 .hero-quick .quick-links a:hover { color: var(--text-strong); border-color: var(--border-bright); transform: translateY(-2px); background: var(--surface); }
 .hero-quick .quick-links svg { width: 16px; height: 16px; }
 
-/* Hero portrait — blends into the page background */
+/* Hero portrait — enclosed in a square box with a black outline; the photo rises
+   out of the top of the box for a lively, dimensional look */
 .hero-art {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-end;
 }
 .hero-art-frame {
   position: relative;
   width: 100%;
-  max-width: 780px;
+  max-width: 620px;
+  aspect-ratio: 1 / 1;
+  border: 2px solid #17150f;
+  background: var(--surface);
 }
 .hero-art-frame img {
-  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.95;
-  filter: brightness(1.06) contrast(0.98);
-  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 24%);
-  mask-image: linear-gradient(to top, transparent 0%, #000 24%);
+  height: 118%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 /* Hero on-load entrance: text slides in from left, image fades in */
@@ -496,6 +501,52 @@ button:focus-visible {
 }
 .stat-tile .stat-num { font-size: 2rem; font-weight: 700; color: var(--text-strong); letter-spacing: -0.02em; }
 .stat-tile .stat-label { font-size: 0.85rem; color: var(--text-sub); margin-top: 2px; }
+
+/* ── CAREER EXPERIENCE ── */
+.career-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 860px;
+}
+.career-card {
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 0;
+  padding: 26px 30px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 6px 34px;
+  align-items: baseline;
+  transition: transform 0.2s var(--ease-smooth), box-shadow 0.2s;
+}
+.career-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.career-period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+.career-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+.career-company { font-size: 0.85rem; color: var(--text-sub); }
+.career-card p {
+  grid-column: 2;
+  color: var(--text-sub);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .career-card { grid-template-columns: 1fr; gap: 8px; }
+  .career-card p { grid-column: 1; }
+}
 
 /* ── SERVICES ── */
 .services-grid {
