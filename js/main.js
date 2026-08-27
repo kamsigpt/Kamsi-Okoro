@@ -66,67 +66,10 @@
     });
 })();
 
-/* -- THEME TOGGLE -- */
-(function initThemeToggle() {
-    const tracks = document.querySelectorAll('.toggle-track');
-    if (!tracks.length) return;
-
-    const themes = ['light', 'dark'];
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const savedStep = Number.parseInt(localStorage.getItem('themeStep') || '0', 10);
-    let step = Number.isFinite(savedStep) ? Math.abs(savedStep) % themes.length : 0;
-    let animating = false;
-
-    function setTrackState(activeStep) {
-        tracks.forEach(track => {
-            track.dataset.step = activeStep;
-            track.setAttribute('aria-pressed', String(activeStep === 1));
-        });
-    }
-
-    function applyTheme(nextStep = step) {
-        const safeStep = ((nextStep % themes.length) + themes.length) % themes.length;
-        const nextTheme = themes[safeStep];
-        if (nextTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-        }
-        setTrackState(safeStep);
-    }
-
-    function toggleTheme(event) {
-        if (animating) return;
-        animating = true;
-        const nextStep = (step + 1) % themes.length;
-
-        if (!reducedMotion && typeof document.startViewTransition === 'function') {
-            const transition = document.startViewTransition(() => {
-                applyTheme(nextStep);
-            });
-            transition.finished.finally(() => { animating = false; });
-        } else {
-            applyTheme(nextStep);
-            animating = false;
-        }
-        step = nextStep;
-        localStorage.setItem('themeStep', String(step));
-    }
-
-    tracks.forEach(track => {
-        track.addEventListener('click', toggleTheme);
-        track.setAttribute('role', 'button');
-        track.setAttribute('tabindex', '0');
-        track.setAttribute('aria-label', 'Toggle theme');
-        track.addEventListener('keydown', event => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggleTheme();
-            }
-        });
-    });
-
-    applyTheme(step);
+/* -- THEME: fixed light (off-white) theme -- */
+(function initLightTheme() {
+    document.documentElement.setAttribute('data-theme', 'light');
+    try { localStorage.removeItem('themeStep'); } catch (_) {}
 })();
 
 /* -- ACTIVE NAV (redundant with HTML, kept harmless) -- */
