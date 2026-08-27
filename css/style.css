@@ -15,18 +15,18 @@
   --text-strong: #0e0d09;
   --text-sub:    #6b6457;
   --text-dim:    #a49d8e;
-  --border:      rgba(23,21,15,0.11);
-  --border-bright: rgba(23,21,15,0.22);
+  --border:      rgba(20,18,12,0.50);
+  --border-bright: rgba(20,18,12,0.78);
   --accent:      #17150f;
   --btn-bg:      #17150f;
   --btn-text:    #f6f3ec;
   --btn-hover:   #2c2920;
   --grid-line:   rgba(23,21,15,0.045);
 
-  --r-sm: 10px;
-  --r-md: 14px;
-  --r-lg: 20px;
-  --r-full: 999px;
+  --r-sm: 0px;
+  --r-md: 0px;
+  --r-lg: 0px;
+  --r-full: 0px;
 
   --shadow-sm: 0 1px 2px rgba(23,21,15,0.05);
   --shadow-md: 0 12px 30px rgba(23,21,15,0.08);
@@ -147,14 +147,16 @@ button:focus-visible {
 }
 .navbar-inner {
   pointer-events: auto;
-  width: 100%;
-  max-width: 980px;
+  width: auto;
+  max-width: none;
+  margin-left: auto;
+  margin-right: 16px;
   height: var(--nav-h);
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 20px;
-  padding: 0 12px;
+  gap: 16px;
+  padding: 0 10px;
   background: color-mix(in srgb, var(--surface) 78%, transparent);
   backdrop-filter: blur(14px) saturate(1.3);
   -webkit-backdrop-filter: blur(14px) saturate(1.3);
@@ -166,8 +168,10 @@ button:focus-visible {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 10px;
   list-style: none;
+  padding: 0 6px;
+  border-right: 1px solid var(--border);
 }
 .nav-link {
   position: relative;
@@ -291,7 +295,7 @@ button:focus-visible {
 }
 .btn svg { width: 16px; height: 16px; transition: transform 0.22s var(--ease-smooth); }
 .btn:hover svg { transform: translateX(4px); }
-.btn-primary { background: var(--btn-bg); color: var(--btn-text); box-shadow: var(--shadow-sm); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--btn-bg); box-shadow: var(--shadow-sm); }
 .btn-primary:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .btn-outline {
   background: transparent;
@@ -303,12 +307,13 @@ button:focus-visible {
 .btn-sm svg { width: 14px; height: 14px; }
 .btn-block { width: 100%; }
 
-/* Arrow-only circular nav button */
+/* Arrow-only square nav button */
 .arrow-btn {
   width: 48px; height: 48px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--btn-bg);
   color: var(--btn-text);
+  border: 1px solid var(--btn-bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -331,23 +336,30 @@ button:focus-visible {
 .hero-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
+  gap: 72px;
   align-items: center;
 }
 .hero-name-line {
   display: block;
-  font-size: clamp(3rem, 7vw, 5.4rem);
-  line-height: 1;
+  font-size: clamp(3.6rem, 8.5vw, 7.2rem);
+  line-height: 0.96;
   font-weight: 800;
   letter-spacing: -0.035em;
   color: var(--text-strong);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .hero-subtitle {
-  font-size: clamp(1.05rem, 2vw, 1.4rem);
-  font-weight: 500;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  font-weight: 600;
   letter-spacing: -0.01em;
+  color: var(--text-strong);
+  margin-bottom: 14px;
+}
+.hero-intro {
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
   color: var(--text-sub);
+  max-width: 560px;
   padding-bottom: 30px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 30px;
@@ -384,31 +396,33 @@ button:focus-visible {
 .hero-art-frame {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 560px;
 }
 .hero-art-frame img {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
-  opacity: 0.9;
-  filter: brightness(1.08) contrast(0.98);
-  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 28%);
-  mask-image: linear-gradient(to top, transparent 0%, #000 28%);
+  opacity: 0.95;
+  filter: brightness(1.06) contrast(0.98);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 24%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 24%);
 }
 
 /* Hero on-load entrance: text slides in from left, image fades in */
 .hero-name-line,
 .hero-subtitle,
+.hero-intro,
 .hero-cta,
 .hero-quick {
   opacity: 0;
   animation: heroEnterLeft 0.85s var(--ease-out) both;
 }
 .hero-name-line { animation-delay: 0.05s; }
-.hero-subtitle  { animation-delay: 0.16s; }
-.hero-cta       { animation-delay: 0.28s; }
-.hero-quick     { animation-delay: 0.4s; }
+.hero-subtitle  { animation-delay: 0.14s; }
+.hero-intro     { animation-delay: 0.22s; }
+.hero-cta       { animation-delay: 0.32s; }
+.hero-quick     { animation-delay: 0.42s; }
 .hero-art { animation: heroFadeRise 1s var(--ease-out) 0.2s both; }
 
 @keyframes heroEnterLeft {
