@@ -703,7 +703,13 @@ button:focus-visible {
 .page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700; letter-spacing: -0.025em; color: var(--text-strong); margin-bottom: 16px; }
 .page-hero p { font-size: 1.02rem; color: var(--text-sub); max-width: 560px; line-height: 1.7; }
 
+/* Works page: pull header up to navbar level and bring projects higher */
+.works-page .page-hero { padding: calc(var(--nav-h) + 6px) 0 0; }
+.works-page .page-hero p { margin-bottom: 0; }
+
 .works-stage { display: flex; flex-direction: column; gap: 56px; }
+.works-page .works-stage { gap: 24px; }
+.works-page .work-item { padding-top: 12px; }
 .work-item {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
