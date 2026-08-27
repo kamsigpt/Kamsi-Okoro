@@ -567,6 +567,8 @@ button:focus-visible {
 .service-card .icon svg { width: 28px; height: 28px; }
 .service-card h3 { font-size: 1.2rem; font-weight: 600; color: var(--text-strong); margin-bottom: 8px; }
 .service-card p { font-size: 0.92rem; color: var(--text-sub); line-height: 1.65; }
+.service-card .btn { margin-top: 18px; }
+.service-card .btn svg { transform: none; }
 
 /* ── SKILLS ── */
 .skills-grid {
