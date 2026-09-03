@@ -749,6 +749,7 @@ button:focus-visible {
   box-shadow: var(--shadow-md);
 }
 .work-media video, .work-media img { width: 100%; height: 100%; object-fit: cover; }
+.work-media video { object-fit: contain; background: var(--surface-2); }
 .work-media-16x10 { aspect-ratio: 16 / 10; }
 
 /* Modular info tile grid */
