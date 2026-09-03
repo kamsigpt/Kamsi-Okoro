@@ -258,61 +258,6 @@
     });
 })();
 
-/* -- CV LOGIN MODAL (contact page) -- */
-(function initCvLoginModal() {
-    const modal = document.getElementById('cvModal');
-    const trigger = document.querySelector('.cv-login-trigger');
-    if (!modal || !trigger) return;
-
-    const passwordInput = modal.querySelector('input[name="password"]');
-    const form = modal.querySelector('.cv-login-form');
-    const errorEl = modal.querySelector('.cv-form-error');
-
-    function downloadCv() {
-        const a = document.createElement('a');
-        a.href = 'assets/Kamsi%20Okoro%20Profesional%20CV.pdf';
-        a.download = 'Kamsi_Okoro_CV.pdf';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-    }
-
-    function open() {
-        modal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        window.setTimeout(() => {
-            modal.classList.add('open');
-            passwordInput.focus();
-        }, 10);
-    }
-
-    function close() {
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
-        form.reset();
-        errorEl.textContent = '';
-        window.setTimeout(() => { modal.hidden = true; }, 250);
-    }
-
-    trigger.addEventListener('click', open);
-    modal.querySelectorAll('[data-cv-close]').forEach(el => el.addEventListener('click', close));
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && !modal.hidden) close();
-    });
-
-    form.addEventListener('submit', event => {
-        event.preventDefault();
-        const value = (passwordInput.value || '').trim();
-        if (value === 'oksami') {
-            close();
-            downloadCv();
-        } else {
-            errorEl.textContent = 'Incorrect password. Please try again.';
-            passwordInput.select();
-        }
-    });
-})();
-
 /* -- CERT PREVIEW OPEN -- */
 (function initCertificatePreviewOpen() {
     const certificateCards = document.querySelectorAll('.cert-card[data-cert-src]');
