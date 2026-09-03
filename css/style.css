@@ -714,8 +714,19 @@ button:focus-visible {
 .page-hero p { font-size: 1.02rem; color: var(--text-sub); max-width: 560px; line-height: 1.7; }
 
 /* Works page: pull header up to navbar level and bring projects higher */
-.works-page .page-hero { padding: calc(var(--nav-h) + 6px) 0 0; }
+.works-page .page-hero {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--nav-h) + 14px);
+}
+.works-page .page-hero .container { display: flex; align-items: center; }
 .works-page .page-hero p { margin-bottom: 0; }
+.works-page .page-hero h1 {
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  margin-bottom: 0;
+  line-height: 1;
+}
 
 .works-stage { display: flex; flex-direction: column; gap: 56px; }
 .works-page .works-stage { gap: 24px; }
