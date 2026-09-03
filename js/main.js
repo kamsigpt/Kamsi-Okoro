@@ -218,26 +218,98 @@
     });
 })();
 
-/* -- CV DOWNLOAD LINK -- */
-(function initCvDownloadLink() {
-    const cvLinks = document.querySelectorAll('.cv-download-link');
-    if (!cvLinks.length) return;
+/* -- DUAL DOWNLOAD LINK (CV + Portfolio) -- */
+(function initDualDownloadLink() {
+    const dualLinks = document.querySelectorAll('.dual-download-link');
+    if (!dualLinks.length) return;
 
-    const fallbackSrc = 'assets/Nedokoro_Kamsiyochi_%E2%80%94_Product_Designer_Portfolio.pdf';
-    const fallbackName = 'Kamsi_Okoro_CV.pdf';
+    const fallbackCvSrc = 'assets/Kamsi%20Okoro%20Profesional%20CV.pdf';
+    const fallbackCvName = 'Kamsi_Okoro_CV.pdf';
+    const fallbackPortfolioSrc = 'assets/Nedokoro_Kamsiyochi_%E2%80%94_Product_Designer_Portfolio.pdf';
+    const fallbackPortfolioName = 'Kamsi_Okoro_Portfolio.pdf';
+
+    function triggerDownload(src, name) {
+        const a = document.createElement('a');
+        a.href = src;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }
 
     function flashTitle(link, text) {
-        const original = link.getAttribute('title') || 'Download CV';
+        const original = link.getAttribute('title') || 'Download';
         link.setAttribute('title', text);
         window.setTimeout(() => link.setAttribute('title', original), 1400);
     }
 
-    cvLinks.forEach(link => {
-        const cvSrc = (link.dataset.cvSrc || '').trim() || fallbackSrc;
-        const downloadName = (link.dataset.downloadName || '').trim() || fallbackName;
-        link.setAttribute('href', cvSrc);
-        link.setAttribute('download', downloadName);
-        link.addEventListener('click', () => flashTitle(link, 'Downloading...'));
+    dualLinks.forEach(link => {
+        const cvSrc = (link.dataset.cvSrc || '').trim() || fallbackCvSrc;
+        const cvName = (link.dataset.cvName || '').trim() || fallbackCvName;
+        const portfolioSrc = (link.dataset.portfolioSrc || '').trim() || fallbackPortfolioSrc;
+        const portfolioName = (link.dataset.portfolioName || '').trim() || fallbackPortfolioName;
+
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            triggerDownload(cvSrc, cvName);
+            window.setTimeout(() => triggerDownload(portfolioSrc, portfolioName), 250);
+            flashTitle(link, 'Downloading...');
+        });
+    });
+})();
+
+/* -- CV LOGIN MODAL (contact page) -- */
+(function initCvLoginModal() {
+    const modal = document.getElementById('cvModal');
+    const trigger = document.querySelector('.cv-login-trigger');
+    if (!modal || !trigger) return;
+
+    const passwordInput = modal.querySelector('input[name="password"]');
+    const form = modal.querySelector('.cv-login-form');
+    const errorEl = modal.querySelector('.cv-form-error');
+
+    function downloadCv() {
+        const a = document.createElement('a');
+        a.href = 'assets/Kamsi%20Okoro%20Profesional%20CV.pdf';
+        a.download = 'Kamsi_Okoro_CV.pdf';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }
+
+    function open() {
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        window.setTimeout(() => {
+            modal.classList.add('open');
+            passwordInput.focus();
+        }, 10);
+    }
+
+    function close() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        form.reset();
+        errorEl.textContent = '';
+        window.setTimeout(() => { modal.hidden = true; }, 250);
+    }
+
+    trigger.addEventListener('click', open);
+    modal.querySelectorAll('[data-cv-close]').forEach(el => el.addEventListener('click', close));
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !modal.hidden) close();
+    });
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const value = (passwordInput.value || '').trim();
+        if (value === 'oksami') {
+            close();
+            downloadCv();
+        } else {
+            errorEl.textContent = 'Incorrect password. Please try again.';
+            passwordInput.select();
+        }
     });
 })();
 

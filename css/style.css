@@ -886,6 +886,88 @@ button:focus-visible {
 .contact-card .note { font-size: 0.86rem; color: var(--text-sub); margin-bottom: 22px; }
 .contact-card .btn { align-self: flex-start; }
 
+/* CV login modal */
+.cv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.cv-modal[hidden] { display: none; }
+.cv-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,9,6,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.cv-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--r-lg);
+  padding: 40px 34px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+.cv-modal.open .cv-modal-panel { opacity: 1; transform: none; }
+.cv-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text-sub);
+  border-radius: var(--r-sm);
+  transition: color 0.2s, background-color 0.2s;
+}
+.cv-modal-close:hover { color: var(--text-strong); background: var(--surface-2); }
+.cv-modal-panel h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.cv-modal-note { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 26px; }
+.cv-login-form { display: flex; flex-direction: column; gap: 16px; }
+.cv-field { display: flex; flex-direction: column; gap: 8px; }
+.cv-field span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+}
+.cv-field input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg2);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cv-field input:focus { border-color: var(--border-bright); }
+.cv-form-error {
+  min-height: 1.2em;
+  font-size: 0.84rem;
+  color: #b3261e;
+  margin-top: -6px;
+}
+
 /* ═══════════════════════════════════════════════════════
    ANIMATIONS
    ═══════════════════════════════════════════════════════ */
